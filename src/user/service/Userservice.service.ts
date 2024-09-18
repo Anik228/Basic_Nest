@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { UserRepository } from '../repository/Userrepository.repository';
-import { CreateUserDto} from '../dto/user.dto';
+import { CreateUserDto, UpdateUserDto} from '../dto/user.dto';
 import { User } from '../entity/user.entity';
 
 @Injectable()
@@ -21,14 +21,15 @@ export class UserServiceService {
         return user;
       }
     
-    //   async updateUser(id: number, updateUserDto: UpdateUserDto): Promise<User> {
-    //     const user = await this.userRepository.findOne(id);
-    //     if (!user) {
-    //       throw new NotFoundException(`User with ID ${id} not found`);
-    //     }
-    //     Object.assign(user, updateUserDto);
-    //     return this.userRepository.save(user);
-    //   }
+      async updateUser(id: number, updateUserDto: UpdateUserDto): Promise<User> {
+        const user = await this.userRepository.findOne({ where: { id } });
+        if (!user) {
+          throw new NotFoundException(`User with ID ${id} not found`);
+        }
+        Object.assign(user, updateUserDto);
+        return this.userRepository.save(user);
+      }
+      
     
       async deleteUser(id: number): Promise<void> {
         const result = await this.userRepository.delete(id);
@@ -41,12 +42,12 @@ export class UserServiceService {
         return this.userRepository.find();
       }
     
-    //   async findUserById(id: number): Promise<User> {
-    //     const user = await this.userRepository.findOne(id);
-    //     if (!user) {
-    //       throw new NotFoundException(`User with ID ${id} not found`);
-    //     }
-    //     return user;
-    //   }
+      async findUserById(id: number): Promise<User> {
+        const user = await this.userRepository.findOne({ where: { id } });
+        if (!user) {
+          throw new NotFoundException(`User with ID ${id} not found`);
+        }
+        return user;
+      }
 
 }
