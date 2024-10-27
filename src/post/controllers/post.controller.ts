@@ -12,7 +12,7 @@ export class PostController {
 
   constructor(private readonly postService: PostService) {} 
 
-    @Post('create-post')
+  @Post('create-post')
   async createUser(@Body() createPostDto: CreatePostDTO): Promise<PostEntity> {
     if (!createPostDto.post_description) {
       throw new BadRequestException('Post description is required');
@@ -36,4 +36,12 @@ export class PostController {
   async getAll(): Promise<PostEntity[]> {
     return this.postService.findAll();
   }
+
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.Admin)
+  @Get('get-all-post-with-user-details')
+  async getUsersWithPosts(): Promise<PostEntity[]> {
+    return this.postService.findUsersWithPosts();
+  }
+  
 }

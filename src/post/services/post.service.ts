@@ -19,6 +19,16 @@ export class PostService {
      async findAll(): Promise<PostEntity[]> {
         return this.postRepository.find();
       }
-    
 
+      async findUsersWithPosts(): Promise<any[]> {
+        const query = `
+            SELECT u.id AS userId, u.name, u.email, o.id AS postId, o.user_id AS postUserId, o.post_title, o.post_description
+            FROM public.user u
+            JOIN public.post o ON u.id = o.user_id;
+        `;
+        return this.postRepository.manager.query(query);
+    }
+
+
+  
 }

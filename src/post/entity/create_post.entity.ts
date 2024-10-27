@@ -6,6 +6,9 @@ export class PostEntity {
   id: number;
 
   @Column()
+  user_id: number;
+
+  @Column()
   post_title: string;
 
   @Column()
