@@ -5,6 +5,11 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModuleModule } from './user/module/Usermodule.module';
 import { User } from './user/entity/user.entity';
+import { PostModule } from './post/post.module';
+import { PostEntity } from './post/entity/create_post.entity';
+import { AuthModule } from './auth/auth.module';
+import { UserRepository } from './user/repository/Userrepository.repository';
+
 
 @Module({
   imports: [
@@ -20,10 +25,14 @@ import { User } from './user/entity/user.entity';
       autoLoadEntities: true, 
       synchronize: true,
       entities:[
-        User
+        User,
+        PostEntity
       ]
     }),
-    UserModuleModule],
+    UserModuleModule,
+    PostModule,
+    AuthModule
+    ],
   controllers: [AppController],
   providers: [AppService],
 })

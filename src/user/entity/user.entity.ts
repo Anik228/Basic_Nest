@@ -17,3 +17,7 @@ export class User {
   @Column()
   role: string;
 }
+
+//nest g controller controller/controller/controller --flat --no-spec
+
+//nest g service auth/services/auth --flat --no-spec

@@ -15,11 +15,11 @@ export class UserServiceService {
 
     }
 
-    async createUser(createUserDto: CreateUserDto): Promise<User> {
+     async createUser(createUserDto: CreateUserDto): Promise<User> {
         const user = this.userRepository.create(createUserDto);
         await this.userRepository.save(user);
         return user;
-      }
+     }
     
       async updateUser(id: number, updateUserDto: UpdateUserDto): Promise<User> {
         const user = await this.userRepository.findOne({ where: { id } });
@@ -30,7 +30,6 @@ export class UserServiceService {
         return this.userRepository.save(user);
       }
       
-    
       async deleteUser(id: number): Promise<void> {
         const result = await this.userRepository.delete(id);
         if (result.affected === 0) {
@@ -38,7 +37,7 @@ export class UserServiceService {
         }
       }
     
-      async findAllUsers(): Promise<User[]> {
+      async findAll(): Promise<User[]> {
         return this.userRepository.find();
       }
     
@@ -50,4 +49,17 @@ export class UserServiceService {
         return user;
       }
 
+      async findAllUsers(): Promise<User[]> {
+        const query = 'SELECT * FROM public."user" WHERE role = $1';
+        const role = 'user';
+        console.log('Executing query:', query, 'with role:', role);  // Debug log
+        return await this.userRepository.query(query, [role]);
+      }
+      
+
+      // async findAllUsers(): Promise<User[]> {
+      //   const role = 'user';
+      //   return await this.userRepository.find({ where: { role } });
+      // }
+      
 }
