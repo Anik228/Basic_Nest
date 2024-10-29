@@ -53,4 +53,6 @@ export class UserControllerController {
     return this.userService.findAll();
   }
 
+  
+
 }

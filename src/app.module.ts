@@ -24,6 +24,7 @@ import { UserRepository } from './user/repository/Userrepository.repository';
       database: process.env.POSTGRES_DATABASE, 
       autoLoadEntities: true, 
       synchronize: true,
+      logging: true,
       entities:[
         User,
         PostEntity

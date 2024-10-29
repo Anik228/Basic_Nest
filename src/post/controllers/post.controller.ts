@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, Delete, Get, InternalServerErrorException, Param, Patch, Post,UseGuards} from '@nestjs/common';
+import { BadRequestException, Body, Controller, Delete, Get, InternalServerErrorException, Param, Patch, Post,UseGuards,Query } from '@nestjs/common';
 import { PostService } from '../services/post.service';
 import { CreatePostDTO } from '../dto/create_post.dto';
 import { PostEntity } from '../entity/create_post.entity';
@@ -6,6 +6,7 @@ import { JwtAuthGuard } from '../../../src/auth/jwt-auth.guard';
 import { RolesGuard } from '../../../src/auth/role.guard';
 import { Roles } from '../../../src/auth/roles.decorator';
 import { Role } from '../../../src/auth/roles.enum';
+import { console } from 'inspector';
 
 @Controller('post')
 export class PostController {
@@ -42,6 +43,20 @@ export class PostController {
   @Get('get-all-post-with-user-details')
   async getUsersWithPosts(): Promise<PostEntity[]> {
     return this.postService.findUsersWithPosts();
+  }
+
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.Admin)
+  @Get('get-all-post-with-user-without-user-details')
+  async getUsersWithPostsWithoutPost(): Promise<PostEntity[]> {
+    return this.postService.findUsersWithPostsWithoutPost();
+  }
+  
+  @Get('get-a-user-all-post') 
+  getPost(@Query('user_id') userid: number
+  ) {
+  
+    return this.postService.findUserAllPost(userid);
   }
   
 }
