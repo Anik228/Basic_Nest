@@ -3,7 +3,7 @@ import { UserServiceService } from '../service/Userservice.service';
 import { User } from '../entity/user.entity';
 import { CreateUserDto, UpdateUserDto } from '../dto/user.dto';
 
-@Controller('controller')
+@Controller('user')
 export class UserControllerController {
     constructor(private readonly userService: UserServiceService) {} 
    
@@ -53,6 +53,9 @@ export class UserControllerController {
     return this.userService.findAll();
   }
 
-  
+  @Get('get-all-users-posts')
+  async findAllallpost(): Promise<User[]> {
+    return this.userService.findAllPosts();
+  }
 
 }

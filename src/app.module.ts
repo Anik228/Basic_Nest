@@ -9,6 +9,7 @@ import { PostModule } from './post/post.module';
 import { PostEntity } from './post/entity/create_post.entity';
 import { AuthModule } from './auth/auth.module';
 import { UserRepository } from './user/repository/Userrepository.repository';
+import { PushModule } from './push/module/Push.module';
 
 
 @Module({
@@ -32,7 +33,8 @@ import { UserRepository } from './user/repository/Userrepository.repository';
     }),
     UserModuleModule,
     PostModule,
-    AuthModule
+    AuthModule,
+    PushModule
     ],
   controllers: [AppController],
   providers: [AppService],

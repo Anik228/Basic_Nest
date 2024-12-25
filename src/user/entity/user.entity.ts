@@ -18,7 +18,7 @@ export class User {
   @Column()
   role: string;
 
-  @OneToMany(() => PostEntity, PostEntity => PostEntity.country)
+  @OneToMany(() => PostEntity, PostEntity => PostEntity.user)
   posts: PostEntity[];
 }
 

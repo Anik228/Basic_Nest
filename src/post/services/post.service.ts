@@ -6,6 +6,9 @@ import { PostEntity } from '../entity/create_post.entity';
 
 @Injectable()
 export class PostService {
+  decrypt(encrypted: string, iv: string) {
+    throw new Error('Method not implemented.');
+  }
 
     constructor(private readonly postRepository: PostRepository) {}
 

@@ -55,8 +55,12 @@ export class UserServiceService {
         console.log('Executing query:', query, 'with role:', role);  // Debug log
         return await this.userRepository.query(query, [role]);
       }
-      
 
+      
+      async findAllPosts(): Promise<User[]> {
+        return this.userRepository.find({ relations: ['posts'] });
+      }
+      
       // async findAllUsers(): Promise<User[]> {
       //   const role = 'user';
       //   return await this.userRepository.find({ where: { role } });

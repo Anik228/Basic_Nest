@@ -52,11 +52,15 @@ export class PostController {
     return this.postService.findUsersWithPostsWithoutPost();
   }
   
-  @Get('get-a-user-all-post') 
+  @Get('get-all-user-all-post') 
   getPost(@Query('user_id') userid: number
   ) {
   
     return this.postService.findUserAllPost(userid);
   }
+
+ 
+
+ 
   
 }

@@ -16,7 +16,7 @@ export class PostEntity {
   post_description: string;
 
   @ManyToOne(() => User, user => user.posts)
-  @JoinColumn({ name: 'country_Id' })
+  @JoinColumn({ name: 'user_id' })
   user: User;
-
+ 
 }
