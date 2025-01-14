@@ -2,6 +2,7 @@ import { BadRequestException, Body, Controller, Delete, Get, InternalServerError
 import { UserServiceService } from '../service/Userservice.service';
 import { User } from '../entity/user.entity';
 import { CreateUserDto, UpdateUserDto } from '../dto/user.dto';
+import { RequireLogin } from 'src/auth/require-login.decorator';
 
 @Controller('user')
 export class UserControllerController {
@@ -54,6 +55,7 @@ export class UserControllerController {
   }
 
   @Get('get-all-users-posts')
+  @RequireLogin()
   async findAllallpost(): Promise<User[]> {
     return this.userService.findAllPosts();
   }

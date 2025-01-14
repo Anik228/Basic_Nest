@@ -13,25 +13,40 @@ export class AuthService {
     private readonly configService: ConfigService, // Inject ConfigService here
   ) {}
 
+  // Validate user credentials
   async validateUser(email: string, pass: string): Promise<any> {
     const user = await this.userRepository.findOne({ where: { email } });
     if (user && pass === user.password) {
-      const { password, ...result } = user;
+      const { password, ...result } = user; // Exclude password from the result
       return result;
     }
     return null;
   }
 
+  // Generate JWT token for the user
   async login(user: any) {
     const payload = { username: user.name, sub: user.id, role: user.role };
-    
+
     return {
       access_token: this.jwtService.sign(payload, {
-        secret: this.configService.get<string>('JWT_SECRET'), // Corrected: No semicolon here
+        secret: this.configService.get<string>('JWT_SECRET'), // Get secret from config
+        expiresIn: this.configService.get<string>('JWT_EXPIRES_IN', '3600s'), // Optional: set token expiration
       }),
     };
   }
+
+  // Verify JWT token
+  verifyToken(token: string): any {
+    try {
+      return this.jwtService.verify(token, {
+        secret: this.configService.get<string>('JWT_SECRET'), 
+      });
+    } catch (error) {
+      throw new UnauthorizedException('Invalid or expired token');
+    }
+  }
 }
+
 
 
 // // src/auth/auth.service.ts

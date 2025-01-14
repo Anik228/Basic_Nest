@@ -10,6 +10,8 @@ import { PostEntity } from './post/entity/create_post.entity';
 import { AuthModule } from './auth/auth.module';
 import { UserRepository } from './user/repository/Userrepository.repository';
 import { PushModule } from './push/module/Push.module';
+import { LoginRequiredInterceptor } from './auth/authinterceptor';
+import { APP_INTERCEPTOR } from '@nestjs/core';
 
 
 @Module({
@@ -37,6 +39,11 @@ import { PushModule } from './push/module/Push.module';
     PushModule
     ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService,
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: LoginRequiredInterceptor,
+    }
+  ],
 })
 export class AppModule {}

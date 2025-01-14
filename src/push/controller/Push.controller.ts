@@ -12,11 +12,10 @@ export class PushController {
 
   @Get('decrypt')
   decryptSecret(@Query('encryptedString') encryptedData: string): { decryptedString: string } {
-    const key = "#######";
+    const key = "####";
       const decryptedString = this.googleAuthService.decryptSecret(encryptedData, key);
       return { decryptedString };
    
   }
-  
 
 }
